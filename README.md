@@ -1,2 +1,3 @@
-# -hongkong-minibus-arrival-app
+# hongkong-minibus-arrival-app
+
 Hong Kong Minibus Arrival App
