@@ -11,7 +11,7 @@ const rootUrl = getRootUrl();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "seashell",
     paddingVertical: 15,
   },
   textInputContainer: {
