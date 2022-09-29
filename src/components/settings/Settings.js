@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Linking } from "react-native";
 import { Card } from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useTranslation } from "react-i18next";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,9 +12,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 15,
   },
+  contactUsContainer: {
+    padding: 20,
+    marginHorizontal: 30,
+    marginVertical: 15,
+  },
+  contactUsTextStyle: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
   changeLanguageContainer: {
     padding: 20,
-    backgroundColor: "white",
     marginHorizontal: 30,
     marginVertical: 15,
   },
@@ -104,12 +118,44 @@ function Settings() {
     return selectDropdown;
   };
 
+  const handleEmailClick = () => {
+    Linking.openURL(`mailto:yeukfei02@gmail.com`);
+  };
+
+  const handleGithubClick = () => {
+    Linking.openURL(`https://github.com/yeukfei02`);
+  };
+
   return (
     <View style={styles.container}>
+      <Card style={styles.contactUsContainer}>
+        <Text style={styles.contactUsTextStyle}>{t("contactUsTitle")}</Text>
+
+        <View style={{ marginVertical: 5 }}></View>
+
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="email"
+            size={40}
+            color="black"
+            onPress={() => handleEmailClick()}
+          />
+          <AntDesign
+            name="github"
+            size={40}
+            color="black"
+            onPress={() => handleGithubClick()}
+          />
+        </View>
+      </Card>
+
       <Card style={styles.changeLanguageContainer}>
         <Text style={styles.changeLanguageTitleStyle}>
           {t("changeLanguage")}
         </Text>
+
+        <View style={{ marginVertical: 5 }}></View>
+
         {renderSelectDropdown()}
       </Card>
     </View>
