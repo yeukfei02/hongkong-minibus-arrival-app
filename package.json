@@ -10,6 +10,7 @@
     "axios": "^0.27.2",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",
+    "expo-updates": "~0.14.6",
     "i18next": "^21.9.2",
     "react": "18.0.0",
     "react-i18next": "^11.18.6",

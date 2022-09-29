@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -26,25 +26,42 @@ function Settings() {
   const { t, i18n } = useTranslation();
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("繁體中文");
+  const [value, setValue] = useState("");
   const [items, setItems] = useState([
     {
       label: t("selectLanguage"),
       value: t("selectLanguage"),
     },
     {
-      label: "英文",
-      value: "英文",
+      label: t("english"),
+      value: t("english"),
     },
     {
-      label: "繁體中文",
-      value: "繁體中文",
+      label: t("traditionalChinese"),
+      value: t("traditionalChinese"),
     },
     {
-      label: "簡體中文",
-      value: "簡體中文",
+      label: t("simplifiedChinese"),
+      value: t("simplifiedChinese"),
     },
   ]);
+
+  useEffect(() => {
+    if (i18n.language) {
+      switch (i18n.language) {
+        case "eng":
+          setValue(t("english"));
+          break;
+        case "zh_hk":
+          setValue(t("traditionalChinese"));
+          break;
+        case "zh_cn":
+          setValue(t("simplifiedChinese"));
+          break;
+        default:
+      }
+    }
+  }, [i18n.language]);
 
   const onChangeValue = (value) => {
     if (value) {
