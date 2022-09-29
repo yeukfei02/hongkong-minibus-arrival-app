@@ -26,6 +26,11 @@
     },
     "description": "Hong Kong Minibus Arrival App",
     "privacy": "public",
-    "githubUrl": "https://github.com/yeukfei02/hongkong-minibus-arrival-app"
+    "githubUrl": "https://github.com/yeukfei02/hongkong-minibus-arrival-app",
+    "extra": {
+      "eas": {
+        "projectId": "e28b2444-4c25-491d-9b65-5888475ad726"
+      }
+    }
   }
 }
