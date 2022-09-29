@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, ScrollView, View } from "react-native";
 import { List, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { getRootUrl } from "../../helper/helper";
 
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
 
 function Routes() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const [allHKIRoutes, setAllHKIRoutes] = useState([]);
   const [allKLNRoutes, setAllKLNRoutes] = useState([]);
@@ -72,6 +74,7 @@ function Routes() {
             key={i}
             title={item}
             onPress={() => handleListItemClick("HKI", item)}
+            left={(props) => <List.Icon {...props} icon="bus" />}
           />
         );
       });
@@ -79,8 +82,8 @@ function Routes() {
       allHKIRoutesView = (
         <List.Section>
           <List.Accordion
-            title="Hong Kong Island"
-            left={(props) => <List.Icon {...props} icon="car" />}
+            title={t("hongkongIsland")}
+            left={(props) => <List.Icon {...props} icon="bus" />}
           >
             {allHKIRoutesItemList}
           </List.Accordion>
@@ -109,6 +112,7 @@ function Routes() {
             key={i}
             title={item}
             onPress={() => handleListItemClick("KLN", item)}
+            left={(props) => <List.Icon {...props} icon="bus" />}
           />
         );
       });
@@ -116,8 +120,8 @@ function Routes() {
       allKLNRoutesView = (
         <List.Section>
           <List.Accordion
-            title="Kowloon"
-            left={(props) => <List.Icon {...props} icon="car" />}
+            title={t("kowloon")}
+            left={(props) => <List.Icon {...props} icon="bus" />}
           >
             {allKLNRoutesItemList}
           </List.Accordion>
@@ -146,6 +150,7 @@ function Routes() {
             key={i}
             title={item}
             onPress={() => handleListItemClick("NT", item)}
+            left={(props) => <List.Icon {...props} icon="bus" />}
           />
         );
       });
@@ -153,8 +158,8 @@ function Routes() {
       allNTRoutesView = (
         <List.Section>
           <List.Accordion
-            title="New Territories"
-            left={(props) => <List.Icon {...props} icon="car" />}
+            title={t("newTerritories")}
+            left={(props) => <List.Icon {...props} icon="bus" />}
           >
             {allNTRoutesItemList}
           </List.Accordion>
@@ -166,7 +171,7 @@ function Routes() {
   };
 
   const handleListItemClick = (region, routeStr) => {
-    navigation.navigate("BusRoute", { region: region, routeStr: routeStr });
+    navigation.navigate(t("busRoute"), { region: region, routeStr: routeStr });
   };
 
   const renderRoutesView = () => {
@@ -177,8 +182,8 @@ function Routes() {
         <View>
           <View style={styles.textInputContainer}>
             <TextInput
-              label="Search Routes"
-              placeholder="Search Routes"
+              label={t("searchRoutes")}
+              placeholder={t("searchRoutes")}
               value={searchText}
               onChangeText={(text) => handleSearchTextChange(text)}
             />

@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View, Platform, Linking } from "react-native";
 import { Button, Card, Paragraph, Title } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { getRootUrl } from "../../helper/helper";
 
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
 
 function RouteStop() {
   const route = useRoute();
+  const { i18n } = useTranslation();
 
   const [routeStop, setRouteStop] = useState([]);
 
@@ -58,6 +60,28 @@ function RouteStop() {
     }
   };
 
+  const getNameText = (item) => {
+    let nameText = "";
+
+    if (i18n.language) {
+      switch (i18n.language) {
+        case "eng":
+          nameText = item.name_en;
+          break;
+        case "zh_hk":
+          nameText = item.name_tc;
+          break;
+        case "zh_cn":
+          nameText = item.name_sc;
+          break;
+        default:
+          break;
+      }
+    }
+
+    return nameText;
+  };
+
   const renderRouteStop = () => {
     let routeStopView = null;
 
@@ -67,7 +91,7 @@ function RouteStop() {
           <View key={i}>
             <Card style={styles.cardContainer}>
               <Card.Content>
-                <Title>{item.name_en}</Title>
+                <Title>{getNameText(item)}</Title>
                 <Paragraph
                   style={styles.openInMap}
                   onPress={() => handleOpenInMap(item.stop_id)}
@@ -76,7 +100,7 @@ function RouteStop() {
                 </Paragraph>
               </Card.Content>
               <Card.Actions>
-                <Button>Enter</Button>
+                <Button mode="outlined">Enter</Button>
               </Card.Actions>
             </Card>
             {renderArrowDownIcon(i)}
