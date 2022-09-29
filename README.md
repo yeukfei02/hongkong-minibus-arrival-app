@@ -1,6 +1,12 @@
-# hongkong-minibus-arrival-app
+<p align="center">
+  <img width="200px" src="https://github.com/yeukfei02/hongkong-minibus-arrival-app/blob/main/readme-icon.png?raw=true"><br/>
+  <h2 align="center">hongkong-minibus-arrival-app</h2>
+</p>
 
-Hong Kong Minibus Arrival App
+<p align="center">
+  <a href=""><img src="https://github.com/yeukfei02/hongkong-minibus-arrival-app/blob/main/app-store-badge.png?raw=true" width="30%" height="30%" alt=""></a>
+  <a href=""><img src="https://github.com/yeukfei02/hongkong-minibus-arrival-app/blob/main/google-play-badge.png?raw=true" width="30%" height="30%" alt=""></a>
+</p>
 
 ## Requirement
 
