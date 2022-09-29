@@ -9,7 +9,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "seashell",
     paddingVertical: 15,
   },
   contactUsContainer: {

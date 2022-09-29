@@ -11,7 +11,7 @@ const rootUrl = getRootUrl();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "seashell",
     paddingVertical: 15,
   },
   cardContainer: {
@@ -117,6 +117,9 @@ function BusRoute() {
             <Card.Actions>
               <Button
                 mode="outlined"
+                style={{ padding: 5 }}
+                labelStyle={{ fontSize: 15 }}
+                uppercase={false}
                 onPress={() => handleEnterButtonClick(item.route_id)}
               >
                 Enter
