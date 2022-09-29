@@ -4,15 +4,9 @@ import { Card, Title } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import moment from "moment";
+import "moment-timezone";
 import { getRootUrl } from "../../helper/helper";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-dayjs.tz.setDefault("Asia/Hong_Kong");
 
 const rootUrl = getRootUrl();
 
@@ -70,7 +64,7 @@ function RouteStopArrival() {
         return (
           <View key={i}>
             <Card style={styles.cardContainer}>
-              <Card.Title title={`Next ${item.eta_seq} bus`} />
+              <Card.Title title={`${t("next")} ${item.eta_seq} ${t("bus")}`} />
               <Card.Content>
                 <Title>
                   {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
@@ -88,15 +82,15 @@ function RouteStopArrival() {
   const getMinutesDiffStr = (timestamp) => {
     let minutesDiffStr = "";
 
-    const now = dayjs().tz("Asia/Hong_Kong");
-    const itemTime = dayjs(timestamp).tz("Asia/Hong_Kong");
+    const now = moment().tz("Asia/Hong_Kong");
+    const itemTime = moment(timestamp).tz("Asia/Hong_Kong");
 
-    console.log("now = ", now);
-    console.log("itemTime = ", itemTime);
+    // console.log("now = ", now);
+    // console.log("itemTime = ", itemTime);
 
     const minutesDiff = itemTime.diff(now, "minute");
 
-    console.log("minutesDiff = ", minutesDiff);
+    // console.log("minutesDiff = ", minutesDiff);
 
     if (minutesDiff > 0) {
       minutesDiffStr = `${minutesDiff} minutes`;
