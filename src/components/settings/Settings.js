@@ -49,13 +49,19 @@ function Settings() {
   const onChangeValue = (value) => {
     if (value) {
       switch (value) {
-        case "English" || "英文" || "英语":
+        case "English":
+        case "英文":
+        case "英语":
           i18n.changeLanguage("eng");
           break;
-        case "Traditional Chinese" || "繁體中文" || "繁体中文":
+        case "Traditional Chinese":
+        case "繁體中文":
+        case "繁体中文":
           i18n.changeLanguage("zh_hk");
           break;
-        case "Simplified Chinese" || "簡體中文" || "简体中文":
+        case "Simplified Chinese":
+        case "簡體中文":
+        case "简体中文":
           i18n.changeLanguage("zh_cn");
           break;
         default:
