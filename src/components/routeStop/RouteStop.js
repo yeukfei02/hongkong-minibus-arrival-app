@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, View, Platform, Linking } from "react-native";
 import { Button, Card, Paragraph, Title } from "react-native-paper";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
 
 function RouteStop() {
   const route = useRoute();
-  const { i18n } = useTranslation();
+  const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
 
   const [routeStop, setRouteStop] = useState([]);
 
@@ -100,7 +101,12 @@ function RouteStop() {
                 </Paragraph>
               </Card.Content>
               <Card.Actions>
-                <Button mode="outlined">Enter</Button>
+                <Button
+                  mode="outlined"
+                  onPress={() => handleEnterButtonClick(item.stop_id)}
+                >
+                  Enter
+                </Button>
               </Card.Actions>
             </Card>
             {renderArrowDownIcon(i)}
@@ -110,6 +116,13 @@ function RouteStop() {
     }
 
     return routeStopView;
+  };
+
+  const handleEnterButtonClick = (stopId) => {
+    navigation.navigate(t("routeStopArrival"), {
+      routeId: route.params.routeId,
+      stopId: stopId,
+    });
   };
 
   const renderArrowDownIcon = (i) => {

@@ -106,7 +106,10 @@ function BusRoute() {
       busRouteView = busRoutes.map((item, i) => {
         return (
           <Card key={i} style={styles.cardContainer}>
-            <Card.Title title={item.route_code} subtitle={item.region} />
+            <Card.Title
+              title={item.route_code}
+              subtitle={getRegionText(item.region)}
+            />
             <Card.Content>
               <Title>{getDescriptionText(item)}</Title>
               <Paragraph>{getDirectionText(item)}</Paragraph>
@@ -125,6 +128,28 @@ function BusRoute() {
     }
 
     return busRouteView;
+  };
+
+  const getRegionText = (region) => {
+    let regionText = "";
+
+    if (region) {
+      switch (region) {
+        case "HKI":
+          regionText = t("hongkongIsland");
+          break;
+        case "KLN":
+          regionText = t("kowloon");
+          break;
+        case "NT":
+          regionText = t("newTerritories");
+          break;
+        default:
+          break;
+      }
+    }
+
+    return regionText;
   };
 
   const handleEnterButtonClick = (routeId) => {
