@@ -3,12 +3,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useTranslation } from "react-i18next";
 import RoutesView from "../routesView/RoutesView";
 import SettingsView from "../settingsView/SettingsView";
 
 const Tab = createBottomTabNavigator();
 
 function TabView() {
+  const { t } = useTranslation();
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -16,32 +19,44 @@ function TabView() {
           tabBarIcon: ({ focused, color, size }) => {
             let icon = null;
 
-            if (route.name === "Routes") {
-              if (focused) {
-                icon = (
-                  <MaterialCommunityIcons
-                    name="routes"
-                    size={size}
-                    color={color}
-                  />
-                );
-              } else {
-                icon = (
-                  <MaterialCommunityIcons
-                    name="routes"
-                    size={size}
-                    color={color}
-                  />
-                );
-              }
-            } else if (route.name === "Settings") {
-              if (focused) {
-                icon = <Ionicons name="settings" size={size} color={color} />;
-              } else {
-                icon = (
-                  <Ionicons name="settings-outline" size={size} color={color} />
-                );
-              }
+            switch (route.name) {
+              case "Routes":
+              case "路線":
+              case "路线":
+                if (focused) {
+                  icon = (
+                    <MaterialCommunityIcons
+                      name="routes"
+                      size={size}
+                      color={color}
+                    />
+                  );
+                } else {
+                  icon = (
+                    <MaterialCommunityIcons
+                      name="routes"
+                      size={size}
+                      color={color}
+                    />
+                  );
+                }
+                break;
+              case "Settings":
+              case "設定":
+                if (focused) {
+                  icon = <Ionicons name="settings" size={size} color={color} />;
+                } else {
+                  icon = (
+                    <Ionicons
+                      name="settings-outline"
+                      size={size}
+                      color={color}
+                    />
+                  );
+                }
+                break;
+              default:
+                break;
             }
 
             return icon;
@@ -51,8 +66,8 @@ function TabView() {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Routes" component={RoutesView} />
-        <Tab.Screen name="Settings" component={SettingsView} />
+        <Tab.Screen name={t("routes")} component={RoutesView} />
+        <Tab.Screen name={t("settings")} component={SettingsView} />
       </Tab.Navigator>
     </NavigationContainer>
   );

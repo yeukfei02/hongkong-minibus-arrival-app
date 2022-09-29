@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { getRootUrl } from "../../helper/helper";
 
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
 function BusRoute() {
   const navigation = useNavigation();
   const route = useRoute();
+  const { t, i18n } = useTranslation();
 
   const [busRoutes, setBusRoutes] = useState([]);
 
@@ -53,6 +55,50 @@ function BusRoute() {
     }
   };
 
+  const getDescriptionText = (item) => {
+    let descriptionText = "";
+
+    if (i18n.language) {
+      switch (i18n.language) {
+        case "eng":
+          descriptionText = item.description_en;
+          break;
+        case "zh_hk":
+          descriptionText = item.description_tc;
+          break;
+        case "zh_cn":
+          descriptionText = item.description_sc;
+          break;
+        default:
+          break;
+      }
+    }
+
+    return descriptionText;
+  };
+
+  const getDirectionText = (item) => {
+    let directionText = "";
+
+    if (i18n.language) {
+      switch (i18n.language) {
+        case "eng":
+          directionText = `From ${item.directions[0].orig_en} to ${item.directions[0].dest_en}`;
+          break;
+        case "zh_hk":
+          directionText = `From ${item.directions[0].orig_tc} to ${item.directions[0].dest_tc}`;
+          break;
+        case "zh_cn":
+          directionText = `From ${item.directions[0].orig_sc} to ${item.directions[0].dest_sc}`;
+          break;
+        default:
+          break;
+      }
+    }
+
+    return directionText;
+  };
+
   const renderBusRoute = () => {
     let busRouteView = null;
 
@@ -62,14 +108,14 @@ function BusRoute() {
           <Card key={i} style={styles.cardContainer}>
             <Card.Title title={item.route_code} subtitle={item.region} />
             <Card.Content>
-              <Title>{item.description_en}</Title>
-              <Paragraph>
-                From {item.directions[0].orig_en} to{" "}
-                {item.directions[0].dest_en}
-              </Paragraph>
+              <Title>{getDescriptionText(item)}</Title>
+              <Paragraph>{getDirectionText(item)}</Paragraph>
             </Card.Content>
             <Card.Actions>
-              <Button onPress={() => handleEnterButtonClick(item.route_id)}>
+              <Button
+                mode="outlined"
+                onPress={() => handleEnterButtonClick(item.route_id)}
+              >
                 Enter
               </Button>
             </Card.Actions>
@@ -82,7 +128,7 @@ function BusRoute() {
   };
 
   const handleEnterButtonClick = (routeId) => {
-    navigation.navigate("RouteStop", { routeId: routeId });
+    navigation.navigate(t("routeStop"), { routeId: routeId });
   };
 
   return (

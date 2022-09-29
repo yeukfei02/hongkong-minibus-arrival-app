@@ -22,11 +22,7 @@
     },
     "android": {
       "package": "com.donaldwu.hongkongminibusarrivalapp",
-      "versionCode": 60,
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "versionCode": 1
     },
     "description": "Hong Kong Minibus Arrival App",
     "privacy": "public",
