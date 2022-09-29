@@ -3,7 +3,7 @@
     "name": "Hong Kong Minibus Arrival App",
     "slug": "hongkong-minibus-arrival-app",
     "platforms": ["ios", "android"],
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/appstore-icon.png",
     "splash": {
