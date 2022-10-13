@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://apps.apple.com/us/app/hong-kong-minibus-arrival/id6443601128"><img src="https://github.com/yeukfei02/hongkong-minibus-arrival-app/blob/main/app-store-badge.png?raw=true" width="30%" height="30%" alt=""></a>
-  <a href=""><img src="https://github.com/yeukfei02/hongkong-minibus-arrival-app/blob/main/google-play-badge.png?raw=true" width="30%" height="30%" alt=""></a>
+  <a href="https://play.google.com/store/apps/details?id=com.donaldwu.hongkongminibusarrivalapp"><img src="https://github.com/yeukfei02/hongkong-minibus-arrival-app/blob/main/google-play-badge.png?raw=true" width="30%" height="30%" alt=""></a>
 </p>
 
 ## Requirement
