@@ -5,6 +5,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import _ from "lodash";
 import { getRootUrl } from "../../helper/helper";
 
 const rootUrl = getRootUrl();
@@ -34,6 +35,7 @@ function RouteStop() {
   const navigation = useNavigation();
   const { t, i18n } = useTranslation();
 
+  const [loading, setLoading] = useState(true);
   const [routeStop, setRouteStop] = useState([]);
 
   useEffect(() => {
@@ -56,6 +58,7 @@ function RouteStop() {
       console.log("responseData = ", responseData);
 
       if (responseData) {
+        setLoading(false);
         setRouteStop(responseData.routeStop);
       }
     }
@@ -84,38 +87,54 @@ function RouteStop() {
   };
 
   const renderRouteStop = () => {
-    let routeStopView = null;
+    let routeStopView = (
+      <Card style={styles.cardContainer}>
+        <Card.Content style={{ alignSelf: "center" }}>
+          <Title>{t("pleaseWait")}</Title>
+        </Card.Content>
+      </Card>
+    );
 
-    if (routeStop) {
-      routeStopView = routeStop.map((item, i) => {
-        return (
-          <View key={i}>
-            <Card style={styles.cardContainer}>
-              <Card.Content>
-                <Title>{getNameText(item)}</Title>
-                <Paragraph
-                  style={styles.openInMap}
-                  onPress={() => handleOpenInMap(item.stop_id)}
-                >
-                  Open in map
-                </Paragraph>
-              </Card.Content>
-              <Card.Actions>
-                <Button
-                  mode="outlined"
-                  style={{ padding: 5 }}
-                  labelStyle={{ fontSize: 15 }}
-                  uppercase={false}
-                  onPress={() => handleEnterButtonClick(item.stop_id)}
-                >
-                  Enter
-                </Button>
-              </Card.Actions>
-            </Card>
-            {renderArrowDownIcon(i)}
-          </View>
+    if (!loading) {
+      if (!_.isEmpty(routeStop)) {
+        routeStopView = routeStop.map((item, i) => {
+          return (
+            <View key={i}>
+              <Card style={styles.cardContainer}>
+                <Card.Content>
+                  <Title>{getNameText(item)}</Title>
+                  <Paragraph
+                    style={styles.openInMap}
+                    onPress={() => handleOpenInMap(item.stop_id)}
+                  >
+                    Open in map
+                  </Paragraph>
+                </Card.Content>
+                <Card.Actions>
+                  <Button
+                    mode="outlined"
+                    style={{ padding: 5 }}
+                    labelStyle={{ fontSize: 15 }}
+                    uppercase={false}
+                    onPress={() => handleEnterButtonClick(item.stop_id)}
+                  >
+                    Enter
+                  </Button>
+                </Card.Actions>
+              </Card>
+              {renderArrowDownIcon(i)}
+            </View>
+          );
+        });
+      } else {
+        routeStopView = (
+          <Card style={styles.cardContainer}>
+            <Card.Content style={{ alignSelf: "center" }}>
+              <Title style={{ color: "red" }}>{t("noData")}</Title>
+            </Card.Content>
+          </Card>
         );
-      });
+      }
     }
 
     return routeStopView;

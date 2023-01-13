@@ -4,6 +4,7 @@ import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import _ from "lodash";
 import { getRootUrl } from "../../helper/helper";
 
 const rootUrl = getRootUrl();
@@ -26,6 +27,7 @@ function BusRoute() {
   const route = useRoute();
   const { t, i18n } = useTranslation();
 
+  const [loading, setLoading] = useState(true);
   const [busRoutes, setBusRoutes] = useState([]);
 
   useEffect(() => {
@@ -50,6 +52,7 @@ function BusRoute() {
       console.log("responseData = ", responseData);
 
       if (responseData) {
+        setLoading(false);
         setBusRoutes(responseData.busRoute);
       }
     }
@@ -100,34 +103,50 @@ function BusRoute() {
   };
 
   const renderBusRoute = () => {
-    let busRouteView = null;
+    let busRouteView = (
+      <Card style={styles.cardContainer}>
+        <Card.Content style={{ alignSelf: "center" }}>
+          <Title>{t("pleaseWait")}</Title>
+        </Card.Content>
+      </Card>
+    );
 
-    if (busRoutes) {
-      busRouteView = busRoutes.map((item, i) => {
-        return (
-          <Card key={i} style={styles.cardContainer}>
-            <Card.Title
-              title={item.route_code}
-              subtitle={getRegionText(item.region)}
-            />
-            <Card.Content>
-              <Title>{getDescriptionText(item)}</Title>
-              <Paragraph>{getDirectionText(item)}</Paragraph>
+    if (!loading) {
+      if (!_.isEmpty(busRoutes)) {
+        busRouteView = busRoutes.map((item, i) => {
+          return (
+            <Card key={i} style={styles.cardContainer}>
+              <Card.Title
+                title={item.route_code}
+                subtitle={getRegionText(item.region)}
+              />
+              <Card.Content>
+                <Title>{getDescriptionText(item)}</Title>
+                <Paragraph>{getDirectionText(item)}</Paragraph>
+              </Card.Content>
+              <Card.Actions>
+                <Button
+                  mode="outlined"
+                  style={{ padding: 5 }}
+                  labelStyle={{ fontSize: 15 }}
+                  uppercase={false}
+                  onPress={() => handleEnterButtonClick(item.route_id)}
+                >
+                  Enter
+                </Button>
+              </Card.Actions>
+            </Card>
+          );
+        });
+      } else {
+        busRouteView = (
+          <Card style={styles.cardContainer}>
+            <Card.Content style={{ alignSelf: "center" }}>
+              <Title style={{ color: "red" }}>{t("noData")}</Title>
             </Card.Content>
-            <Card.Actions>
-              <Button
-                mode="outlined"
-                style={{ padding: 5 }}
-                labelStyle={{ fontSize: 15 }}
-                uppercase={false}
-                onPress={() => handleEnterButtonClick(item.route_id)}
-              >
-                Enter
-              </Button>
-            </Card.Actions>
           </Card>
         );
-      });
+      }
     }
 
     return busRouteView;

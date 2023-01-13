@@ -15,6 +15,8 @@
       "next": "Next",
       "bus": "Bus",
       "remainingTime": "Remaining Time:",
+      "pleaseWait": "Please wait...",
+      "noData": "No data",
 
       "contactUsTitle": "Contact Us",
       "hongkongBusArrivalApp": "Hong Kong Bus Arrival App",
@@ -41,6 +43,8 @@
       "next": "下",
       "bus": "車",
       "remainingTime": "剩餘時間:",
+      "pleaseWait": "請稍等...",
+      "noData": "沒有數據",
 
       "contactUsTitle": "聯繫我們",
       "hongkongBusArrivalApp": "香港巴士到站 App",
@@ -67,6 +71,8 @@
       "next": "下",
       "bus": "车",
       "remainingTime": "剩余时间:",
+      "pleaseWait": "请稍等...",
+      "noData": "没有数据",
 
       "contactUsTitle": "联系我们",
       "hongkongBusArrivalApp": "香港巴士到站 App",
