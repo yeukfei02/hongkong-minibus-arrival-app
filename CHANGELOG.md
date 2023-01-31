@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/yeukfei02/hongkong-minibus-arrival-app/compare/v0.1.1...v0.1.2) (2023-01-31)
+
+
+### Features
+
+* 🎸 add commitlint lib ([b5f1a77](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/b5f1a77ba9440896e374ca0f25a69cd941abe80d))
+* 🎸 add hk bus ios and android link ([55c6c42](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/55c6c42079769fb5efd8eaa3b53fd82f905074d2))
+* 🎸 add loading and no data ui ([2879544](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/287954478fca001f57956d5f270331b76276a45d))
+* 🎸 update to expo 47 and use m1 in eas ([db5a705](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/db5a7053cca107de9d324aacdfcd84d3063148f0))
+
+
+### Bug Fixes
+
+* 🐛 add android link ([6340123](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/6340123f06ce0ed09f27e6c791ecd03cd4bd106b))
+* 🐛 update app.json ([1c219f6](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/1c219f6597c690f666fda23ac5834ad94ac8ec5d))
+* 🐛 update app.json ([3eed9d2](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/3eed9d2a3fc499cb9c4d314f632ab76b0f6a2d4e))
+* 🐛 update expo-updates lib ([4694ae7](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/4694ae7ede6f11e6ed5d6d8615febbed78d0d148))
+* 🐛 update ios deploy png ([d6a498c](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/d6a498c0e28ad53b4ba7987cf24ab937bb3b0257))
+* 🐛 update ios link in readme.md ([24870ef](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/24870ef43e61a1f7931aabe5aa4e67d039f7868c))
+
 ### 0.1.1 (2022-09-29)
 
 
