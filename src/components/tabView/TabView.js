@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
+import NearMeView from "../nearMeView/NearMeView";
 import RoutesView from "../routesView/RoutesView";
 import SettingsView from "../settingsView/SettingsView";
 
@@ -20,6 +21,26 @@ function TabView() {
             let icon = null;
 
             switch (route.name) {
+              case "Near Me":
+              case "靠近我":
+                if (focused) {
+                  icon = (
+                    <MaterialCommunityIcons
+                      name="near-me"
+                      size={size}
+                      color={color}
+                    />
+                  );
+                } else {
+                  icon = (
+                    <MaterialCommunityIcons
+                      name="near-me"
+                      size={size}
+                      color={color}
+                    />
+                  );
+                }
+                break;
               case "Routes":
               case "路線":
               case "路线":
@@ -43,6 +64,7 @@ function TabView() {
                 break;
               case "Settings":
               case "設定":
+              case "设定":
                 if (focused) {
                   icon = <Ionicons name="settings" size={size} color={color} />;
                 } else {
@@ -66,6 +88,7 @@ function TabView() {
           headerShown: false,
         })}
       >
+        <Tab.Screen name={t("nearMe")} component={NearMeView} />
         <Tab.Screen name={t("routes")} component={RoutesView} />
         <Tab.Screen name={t("settings")} component={SettingsView} />
       </Tab.Navigator>

@@ -24,27 +24,26 @@ const styles = StyleSheet.create({
   },
 });
 
-function RouteStopArrival() {
+function MinibusStopArrivalTime() {
   const route = useRoute();
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(true);
-  const [routeStopArrival, setRouteStopArrival] = useState([]);
+  const [minibusStopArrivalTime, setMinibusStopArrivalTime] = useState([]);
 
   useEffect(() => {
     if (route.params) {
-      const routeId = route.params.routeId;
       const stopId = route.params.stopId;
-      if (routeId && stopId) {
-        getRouteStopArrival(routeId, stopId);
+      console.log("stopId = ", stopId);
+      if (stopId) {
+        getMinibusStopArrivalTime(stopId);
       }
     }
   }, [route.params]);
 
-  const getRouteStopArrival = async (routeId, stopId) => {
-    const response = await axios.get(`${rootUrl}/route-stop-arrival`, {
+  const getMinibusStopArrivalTime = async (stopId) => {
+    const response = await axios.get(`${rootUrl}/bus-stop-arrival`, {
       params: {
-        routeId: routeId,
         stopId: stopId,
       },
     });
@@ -54,13 +53,17 @@ function RouteStopArrival() {
 
       if (responseData) {
         setLoading(false);
-        setRouteStopArrival(responseData.routeStopArrival[0].eta);
+        const filteredMinibusStopArrivalTime =
+          responseData.busStopArrival.filter((item) => {
+            return !_.isEmpty(item.eta);
+          });
+        setMinibusStopArrivalTime(filteredMinibusStopArrivalTime);
       }
     }
   };
 
-  const renderRouteStopArrival = () => {
-    let routeStopArrivalView = (
+  const renderMinibusStopArrivalTime = () => {
+    let minibusStopArrivalTimeView = (
       <Card style={styles.cardContainer}>
         <Card.Content style={{ alignSelf: "center" }}>
           <Title>{t("pleaseWait")}</Title>
@@ -69,25 +72,32 @@ function RouteStopArrival() {
     );
 
     if (!loading) {
-      if (!_.isEmpty(routeStopArrival)) {
-        routeStopArrivalView = routeStopArrival.map((item, i) => {
-          return (
-            <View key={i}>
-              <Card style={styles.cardContainer}>
-                <Card.Title
-                  title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
-                />
-                <Card.Content>
-                  <Title>
-                    {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
-                  </Title>
-                </Card.Content>
-              </Card>
-            </View>
-          );
+      if (!_.isEmpty(minibusStopArrivalTime)) {
+        const etaList = [];
+
+        minibusStopArrivalTime.forEach((minibusStopArrivalTimeObj) => {
+          minibusStopArrivalTimeObj.eta.forEach((item, i) => {
+            const view = (
+              <View key={i}>
+                <Card style={styles.cardContainer}>
+                  <Card.Title
+                    title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
+                  />
+                  <Card.Content>
+                    <Title>
+                      {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
+                    </Title>
+                  </Card.Content>
+                </Card>
+              </View>
+            );
+            etaList.push(view);
+          });
         });
+
+        minibusStopArrivalTimeView = etaList;
       } else {
-        routeStopArrivalView = (
+        minibusStopArrivalTimeView = (
           <Card style={styles.cardContainer}>
             <Card.Content style={{ alignSelf: "center" }}>
               <Title style={{ color: "red" }}>{t("noData")}</Title>
@@ -97,7 +107,7 @@ function RouteStopArrival() {
       }
     }
 
-    return routeStopArrivalView;
+    return minibusStopArrivalTimeView;
   };
 
   const getMinutesDiffStr = (timestamp) => {
@@ -127,9 +137,9 @@ function RouteStopArrival() {
       style={styles.container}
       contentContainerStyle={{ paddingBottom: 30 }}
     >
-      {renderRouteStopArrival()}
+      {renderMinibusStopArrivalTime()}
     </ScrollView>
   );
 }
 
-export default RouteStopArrival;
+export default MinibusStopArrivalTime;
