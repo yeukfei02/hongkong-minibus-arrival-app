@@ -1,11 +1,17 @@
 {
   "eng": {
     "translation": {
+      "nearMe": "Near Me",
+      "nearbyMinibusStop": "Nearby Minibus Stop",
       "routes": "Routes",
       "settings": "Settings",
       "busRoute": "BusRoute",
       "routeStop": "RouteStop",
       "routeStopArrival": "RouteStopArrival",
+      "minibusStopArrivalTime": "MinibusStopArrivalTime",
+
+      "arriving": "Arriving",
+      "minutes": "Minutes",
 
       "searchRoutes": "Search Routes",
       "hongkongIsland": "Hong Kong Island",
@@ -29,11 +35,17 @@
   },
   "zh_hk": {
     "translation": {
+      "nearMe": "靠近我",
+      "nearbyMinibusStop": "附近小巴站",
       "routes": "路線",
       "settings": "設定",
       "busRoute": "巴士路線",
       "routeStop": "巴士路線站",
       "routeStopArrival": "巴士到達時間",
+      "minibusStopArrivalTime": "巴士站到達時間",
+
+      "arriving": "到達中",
+      "minutes": "分鐘",
 
       "searchRoutes": "搜索路線",
       "hongkongIsland": "香港島",
@@ -57,11 +69,17 @@
   },
   "zh_cn": {
     "translation": {
+      "nearMe": "靠近我",
+      "nearbyMinibusStop": "附近小巴站",
       "routes": "路线",
-      "settings": "設定",
+      "settings": "设定",
       "busRoute": "巴士路线",
       "routeStop": "巴士路线站",
       "routeStopArrival": "巴士到达时间",
+      "minibusStopArrivalTime": "巴士站到达时间",
+
+      "arriving": "到达中",
+      "minutes": "分钟",
 
       "searchRoutes": "搜索路线",
       "hongkongIsland": "香港岛",
