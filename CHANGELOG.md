@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/yeukfei02/hongkong-minibus-arrival-app/compare/v0.1.2...v0.1.3) (2023-02-05)
+
+
+### Features
+
+* 🎸 add nearme view ([df3e845](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/df3e845568ed29ec27ee1e981fefb55ecae5dd46))
+
+
+### Bug Fixes
+
+* 🐛 update screenshot ([5b8fae6](https://github.com/yeukfei02/hongkong-minibus-arrival-app/commit/5b8fae6b95ec83571d38ec1cc42103c39c1f2207))
+
 ### [0.1.2](https://github.com/yeukfei02/hongkong-minibus-arrival-app/compare/v0.1.1...v0.1.2) (2023-01-31)
 
 
