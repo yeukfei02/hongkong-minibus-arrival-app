@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, View } from "react-native";
-import { Card, Title } from "react-native-paper";
+import { Card, Title, Text } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -30,6 +30,7 @@ function MinibusStopArrivalTime() {
 
   const [loading, setLoading] = useState(true);
   const [minibusStopArrivalTime, setMinibusStopArrivalTime] = useState([]);
+  const [busRouteStrList, setBusRouteStrList] = useState([]);
 
   useEffect(() => {
     if (route.params) {
@@ -40,6 +41,31 @@ function MinibusStopArrivalTime() {
       }
     }
   }, [route.params]);
+
+  useEffect(() => {
+    if (minibusStopArrivalTime) {
+      getBusRouteStrListRequest(minibusStopArrivalTime);
+    }
+  }, [minibusStopArrivalTime]);
+
+  const getBusRouteStrListRequest = async (minibusStopArrivalTime) => {
+    const busRouteStrList = [];
+
+    for (let index = 0; index < minibusStopArrivalTime.length; index++) {
+      const minibusStopArrivalTimeObj = minibusStopArrivalTime[index];
+      console.log(
+        "minibusStopArrivalTimeObj.route_id = ",
+        minibusStopArrivalTimeObj.route_id
+      );
+
+      const busRouteStr = await getBusRouteStr(
+        minibusStopArrivalTimeObj.route_id.toString()
+      );
+      busRouteStrList.push(busRouteStr);
+    }
+
+    setBusRouteStrList(busRouteStrList);
+  };
 
   const getMinibusStopArrivalTime = async (stopId) => {
     const response = await axios.get(`${rootUrl}/bus-stop-arrival`, {
@@ -75,25 +101,47 @@ function MinibusStopArrivalTime() {
       if (!_.isEmpty(minibusStopArrivalTime)) {
         const etaList = [];
 
-        minibusStopArrivalTime.forEach((minibusStopArrivalTimeObj) => {
-          minibusStopArrivalTimeObj.eta.forEach((item, i) => {
-            const view = (
-              <View key={i}>
-                <Card style={styles.cardContainer}>
-                  <Card.Title
-                    title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
-                  />
-                  <Card.Content>
-                    <Title>
-                      {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
-                    </Title>
-                  </Card.Content>
-                </Card>
-              </View>
-            );
-            etaList.push(view);
-          });
-        });
+        for (let index = 0; index < minibusStopArrivalTime.length; index++) {
+          const minibusStopArrivalTimeObj = minibusStopArrivalTime[index];
+
+          const etaCardViewList = minibusStopArrivalTimeObj.eta.map(
+            (item, i) => {
+              const view = (
+                <View key={i}>
+                  <Card style={styles.cardContainer}>
+                    <Card.Title
+                      title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
+                    />
+                    <Card.Content>
+                      <Title>
+                        {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
+                      </Title>
+                    </Card.Content>
+                  </Card>
+                </View>
+              );
+              return view;
+            }
+          );
+
+          const view = (
+            <View>
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: "bold",
+                  color: "black",
+                  marginHorizontal: 25,
+                  marginVertical: 10,
+                }}
+              >
+                {busRouteStrList[index]}
+              </Text>
+              {etaCardViewList}
+            </View>
+          );
+          etaList.push(view);
+        }
 
         minibusStopArrivalTimeView = etaList;
       } else {
@@ -108,6 +156,22 @@ function MinibusStopArrivalTime() {
     }
 
     return minibusStopArrivalTimeView;
+  };
+
+  const getBusRouteStr = async (routeId) => {
+    let busRouteStr = "";
+
+    const response = await axios.get(`${rootUrl}/bus-route/${routeId}`);
+    if (response && response.status === 200) {
+      const responseData = response.data;
+      console.log("responseData = ", responseData);
+
+      if (responseData) {
+        busRouteStr = responseData.busRoute.route_code;
+      }
+    }
+
+    return busRouteStr;
   };
 
   const getMinutesDiffStr = (timestamp) => {
