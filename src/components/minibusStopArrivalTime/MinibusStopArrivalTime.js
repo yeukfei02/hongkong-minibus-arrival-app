@@ -53,16 +53,19 @@ function MinibusStopArrivalTime() {
 
     for (let index = 0; index < minibusStopArrivalTime.length; index++) {
       const minibusStopArrivalTimeObj = minibusStopArrivalTime[index];
-      console.log('minibusStopArrivalTimeObj.route_id = ', minibusStopArrivalTimeObj.route_id);
+      console.log(
+        "minibusStopArrivalTimeObj.route_id = ",
+        minibusStopArrivalTimeObj.route_id
+      );
 
       const busRouteStr = await getBusRouteStr(
         minibusStopArrivalTimeObj.route_id.toString()
       );
       busRouteStrList.push(busRouteStr);
     }
-    
+
     setBusRouteStrList(busRouteStrList);
-  }
+  };
 
   const getMinibusStopArrivalTime = async (stopId) => {
     const response = await axios.get(`${rootUrl}/bus-stop-arrival`, {
@@ -101,23 +104,25 @@ function MinibusStopArrivalTime() {
         for (let index = 0; index < minibusStopArrivalTime.length; index++) {
           const minibusStopArrivalTimeObj = minibusStopArrivalTime[index];
 
-          const etaCardViewList = minibusStopArrivalTimeObj.eta.map((item, i) => {
-            const view = (
-              <View key={i}>
-                <Card style={styles.cardContainer}>
-                  <Card.Title
-                    title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
-                  />
-                  <Card.Content>
-                    <Title>
-                      {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
-                    </Title>
-                  </Card.Content>
-                </Card>
-              </View>
-            );
-            return view;
-          });
+          const etaCardViewList = minibusStopArrivalTimeObj.eta.map(
+            (item, i) => {
+              const view = (
+                <View key={i}>
+                  <Card style={styles.cardContainer}>
+                    <Card.Title
+                      title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
+                    />
+                    <Card.Content>
+                      <Title>
+                        {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
+                      </Title>
+                    </Card.Content>
+                  </Card>
+                </View>
+              );
+              return view;
+            }
+          );
 
           const view = (
             <View>
