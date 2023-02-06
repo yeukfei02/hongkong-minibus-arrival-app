@@ -99,51 +99,54 @@ function MinibusStopArrivalTime() {
 
     if (!loading) {
       if (!_.isEmpty(minibusStopArrivalTime)) {
-        const etaList = [];
+        if (!_.isEmpty(busRouteStrList)) {
+          const etaList = [];
 
-        for (let index = 0; index < minibusStopArrivalTime.length; index++) {
-          const minibusStopArrivalTimeObj = minibusStopArrivalTime[index];
+          for (let index = 0; index < minibusStopArrivalTime.length; index++) {
+            const minibusStopArrivalTimeObj = minibusStopArrivalTime[index];
 
-          const etaCardViewList = minibusStopArrivalTimeObj.eta.map(
-            (item, i) => {
-              const view = (
-                <View key={i}>
-                  <Card style={styles.cardContainer}>
-                    <Card.Title
-                      title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
-                    />
-                    <Card.Content>
-                      <Title>
-                        {t("remainingTime")} {getMinutesDiffStr(item.timestamp)}
-                      </Title>
-                    </Card.Content>
-                  </Card>
-                </View>
-              );
-              return view;
-            }
-          );
+            const etaCardViewList = minibusStopArrivalTimeObj.eta.map(
+              (item, i) => {
+                const view = (
+                  <View key={i}>
+                    <Card style={styles.cardContainer}>
+                      <Card.Title
+                        title={`${t("next")} ${item.eta_seq} ${t("bus")}`}
+                      />
+                      <Card.Content>
+                        <Title>
+                          {t("remainingTime")}{" "}
+                          {getMinutesDiffStr(item.timestamp)}
+                        </Title>
+                      </Card.Content>
+                    </Card>
+                  </View>
+                );
+                return view;
+              }
+            );
 
-          const view = (
-            <View>
-              <Text
-                style={{
-                  fontSize: 22,
-                  fontWeight: "bold",
-                  color: "black",
-                  marginHorizontal: 25,
-                  marginVertical: 10,
-                }}
-              >
-                {busRouteStrList[index]}
-              </Text>
-              {etaCardViewList}
-            </View>
-          );
-          etaList.push(view);
+            const view = (
+              <View>
+                <Text
+                  style={{
+                    fontSize: 22,
+                    fontWeight: "bold",
+                    color: "black",
+                    marginHorizontal: 25,
+                    marginVertical: 10,
+                  }}
+                >
+                  {busRouteStrList[index]}
+                </Text>
+                {etaCardViewList}
+              </View>
+            );
+            etaList.push(view);
+          }
+
+          minibusStopArrivalTimeView = etaList;
         }
-
-        minibusStopArrivalTimeView = etaList;
       } else {
         minibusStopArrivalTimeView = (
           <Card style={styles.cardContainer}>
